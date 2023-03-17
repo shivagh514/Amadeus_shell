@@ -1,0 +1,24 @@
+#!/bin/bash
+
+echo "the script is running for DEV"
+
+curr_user=$(whoami)
+
+echo "the script is running with $curr_user"
+
+DEST="/home/ec2-user/des"
+
+if [ ! -d "$DEST" ]; then
+        echo "directory is not present"
+        exit 1;
+else
+        echo "Initiating the rsync to the $DEST"
+fi
+
+rsync -zarh 172.31.49.121:$DEST/* $DEST
+
+if [ $? -eq 0 ]; then
+        echo "files are copied successfully"
+else
+        echo "files are not copied"
+fi
