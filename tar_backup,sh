@@ -1,0 +1,43 @@
+#!/bin/bash
+#echo "enter the password"
+
+#read PASS
+
+echo "the script is running for DEV"
+
+curr_user=$(whoami)
+
+echo "the script is running with $curr_user"
+
+cd /netfs/
+
+echo "redirected to path: $PWD"
+
+DEST="cms_nas_dev"
+
+if [ ! -d "$DEST" ]; then
+        echo "directory is not present"
+        exit 1;
+else
+        echo "Applying tar to the file: $DEST"
+fi
+
+echo " Excepted backup path: /dev/"
+tar -czf /dev/$DEST.tar.gz $DEST
+
+if [ $? -eq 0 ]; then
+        echo "tar file ran successfully"
+else
+        echo "tar is unsurcessfull !!"
+        exit 1;
+fi
+
+cd /dev
+echo "redirected to path: $PWD"
+
+if [ ! -f "$DEST.tar.gz" ]; then
+        echo "backup file is not created"
+        exit 1;
+else
+        echo "backup file is crated succesfully!!"
+fi
